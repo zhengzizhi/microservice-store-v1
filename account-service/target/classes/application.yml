@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: development
+---
+spring:
+  data:
+    rest:
+      base-path: /api
+  profiles: development
+  datasource:
+    url: jdbc:mysql://192.168.10.200:3306/dev?useSSL=false
+    username: root
+    password: dbpass
+    schema-username: root
+    schema-password: dbpass
+    data-username: root
+    data-password: dbpass
+    platform: mysql
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+    continue-on-error: true
+    initialization-mode: never
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://192.168.10.200:8181/uaa/user
+    client:
+      client-id: acme
+      access-token-uri: http://192.168.10.200:8787
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://192.168.10.200:8761/eureka/

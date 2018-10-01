@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: development
+---
+spring:
+  profiles: development
+  application:
+    name: edge-service
+# http://cloud.spring.io/spring-cloud-static/spring-cloud-netflix/2.0.1.RELEASE/single/spring-cloud-netflix.html
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connection-request-timeout-millis: 60000
+    connect-timeout-millis: 6000
+  retryable: true
+  ignored-services: '*'                       # all micro services are ignored, routing only the following specified micro services
+  ignored-patterns: /**/api/**                # ignore all contain /api/ path
+  routes:
+    user-service: /user/**                    # HTTP calls to /user get forwarded to the service named user-service (for example /api/user/uaa/v1/me is forwarded to /uaa/v1/me)
+    catalog-service: /catalog/**              # HTTP calls to /catalog get forwarded to the service named catalog-service (for example /api/catalog/v1/catalog is forwarded to /v1/catalog)
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://192.168.10.200:8181/uaa/user
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://192.168.10.200:8761/eureka/

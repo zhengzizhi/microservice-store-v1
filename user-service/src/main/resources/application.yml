@@ -1,0 +1,49 @@
+spring:
+  profiles:
+    active: development
+---
+server:
+  port: 8181
+  servlet:
+    context-path: /uaa
+logging:
+  level:
+    org.springframework.security: DEBUG
+spring:
+  data:
+    rest:
+      base-path: /api
+  redis:
+    host: localhost
+    port: 6379
+  security:
+    user:
+      password: password
+  profiles: development
+  datasource:
+    url: jdbc:mysql://192.168.10.200:3306/dev?useSSL=false
+    username: root
+    password: dbpass
+    schema-username: root
+    schema-password: dbpass
+    data-username: root
+    data-password: dbpass
+    platform: mysql
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+    continue-on-error: true
+    initialization-mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: none
+eureka:
+  instance:
+    prefer-ip-address: true
+    non-secure-port: 8181
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://192.168.10.200:8761/eureka/
+      

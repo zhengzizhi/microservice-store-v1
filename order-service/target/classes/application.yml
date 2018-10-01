@@ -1,0 +1,28 @@
+spring.profiles.active: development
+---
+spring:
+  profiles: development
+  data:
+    rest:
+      base-path: /api
+    mongodb:
+      host: 192.168.10.200
+      port: 27017
+  jackson:
+    date-format: "YYYY-MM-dd"
+    serialization:
+      write-dates-as-timestamps: true
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://192.168.10.200:8181/uaa/user
+    client:
+      client-id: acme
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://192.168.10.200:8761/eureka/
